@@ -140,18 +140,18 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
   }
 
   @override
-  Future<bool> buyNonConsumable({required PurchaseParam purchaseParam}) async {
+  Future<bool> buyNonConsumable({required PurchaseParam purchaseParam, String? offerToken}) async {
     ChangeSubscriptionParam? changeSubscriptionParam;
 
     if (purchaseParam is GooglePlayPurchaseParam) {
       changeSubscriptionParam = purchaseParam.changeSubscriptionParam;
     }
 
-    String? offerToken;
-    if (purchaseParam.productDetails is GooglePlayProductDetails) {
-      offerToken =
-          (purchaseParam.productDetails as GooglePlayProductDetails).offerToken;
-    }
+    // String? offerToken;
+    // if (purchaseParam.productDetails is GooglePlayProductDetails) {
+    //   offerToken =
+    //       (purchaseParam.productDetails as GooglePlayProductDetails).offerToken;
+    // }
 
     final BillingResultWrapper billingResultWrapper =
         await billingClientManager.runWithClient(
