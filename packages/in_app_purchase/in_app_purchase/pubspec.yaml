@@ -30,11 +30,16 @@ dependencies:
       
   in_app_purchase_platform_interface:
       git:
-      url: https://github.com/carlerdriving/packages
-      path: "packages/in_app_purchase/in_app_purchase_platform_interface"
-      ref: main
+        url: https://github.com/carlerdriving/packages
+        path: "packages/in_app_purchase/in_app_purchase_platform_interface"
+        ref: main
   
-  in_app_purchase_storekit: ^0.3.14
+  in_app_purchase_storekit:
+      git:
+        url: https://github.com/carlerdriving/packages
+        path: "packages/in_app_purchase/in_app_purchase_storekit"
+        ref: main
+
 
 dev_dependencies:
   flutter_test:
