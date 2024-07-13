@@ -140,14 +140,14 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
   }
 
   @override
-  Future<bool> buyNonConsumable({required PurchaseParam purchaseParam, String? offerToken}) async {
+  Future<bool> buyNonConsumable({required PurchaseParam purchaseParam}) async {
     ChangeSubscriptionParam? changeSubscriptionParam;
 
     if (purchaseParam is GooglePlayPurchaseParam) {
       changeSubscriptionParam = purchaseParam.changeSubscriptionParam;
     }
 
-    // String? offerToken;
+    String? offerToken = purchaseParam.offerTokenAndroid;
     // if (purchaseParam.productDetails is GooglePlayProductDetails) {
     //   offerToken =
     //       (purchaseParam.productDetails as GooglePlayProductDetails).offerToken;
