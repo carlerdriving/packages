@@ -16,6 +16,7 @@ class PurchaseParam {
   ///
   /// It has to match one of the valid [ProductDetails] objects that you get from [ProductDetailsResponse] after calling [InAppPurchasePlatform.queryProductDetails].
   final ProductDetails productDetails;
+  String? offerCodeAndroid;
 
   /// An opaque id for the user's account that's unique to your app. (Optional)
   ///
