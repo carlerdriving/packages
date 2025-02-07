@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The layer managed by this controller instance.
 @property(readonly, nonatomic) GMSTileLayer *layer;
 
-- (instancetype)initWithTileLayer:(GMSTileLayer *)tileLayer
-                          mapView:(GMSMapView *)mapView
-                          options:(NSDictionary *)optionsData;
+- (instancetype)initWithTileOverlay:(FGMPlatformTileOverlay *)tileOverlay
+                          tileLayer:(GMSTileLayer *)tileLayer
+                            mapView:(GMSMapView *)mapView;
 - (void)removeTileOverlay;
 - (void)clearTileCache;
 @end
@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMapView:(GMSMapView *)mapView
                 callbackHandler:(FGMMapsCallbackApi *)callbackHandler
                       registrar:(NSObject<FlutterPluginRegistrar> *)registrar;
-- (void)addJSONTileOverlays:(NSArray<NSDictionary<NSString *, id> *> *)tileOverlaysToAdd;
 - (void)addTileOverlays:(NSArray<FGMPlatformTileOverlay *> *)tileOverlaysToAdd;
 - (void)changeTileOverlays:(NSArray<FGMPlatformTileOverlay *> *)tileOverlaysToChange;
 - (void)removeTileOverlayWithIdentifiers:(NSArray<NSString *> *)identifiers;

@@ -34,7 +34,7 @@ void MockInitCaptureController(
     MockTextureRegistrar* texture_registrar, MockCaptureEngine* engine,
     MockCamera* camera, int64_t mock_texture_id,
     const PlatformMediaSettings media_settings =
-        PlatformMediaSettings(PlatformResolutionPreset::max, true)) {
+        PlatformMediaSettings(PlatformResolutionPreset::kMax, true)) {
   ComPtr<MockMediaSource> video_source = new MockMediaSource();
   ComPtr<MockMediaSource> audio_source = new MockMediaSource();
 
@@ -153,6 +153,15 @@ void MockStartPreview(CaptureControllerImpl* capture_controller,
   MockAvailableMediaTypes(engine, capture_source.Get(), mock_preview_width,
                           mock_preview_height);
 
+  EXPECT_CALL(
+      *capture_source.Get(),
+      SetCurrentDeviceMediaType(
+          Eq((DWORD)
+                 MF_CAPTURE_ENGINE_PREFERRED_SOURCE_STREAM_FOR_VIDEO_PREVIEW),
+          _))
+      .Times(1)
+      .WillOnce(Return(S_OK));
+
   EXPECT_CALL(*engine, StartPreview()).Times(1).WillOnce(Return(S_OK));
 
   // Called by destructor
@@ -261,7 +270,7 @@ TEST(CaptureController, InitCaptureEngineCanOnlyBeCalledOnce) {
 
   bool result = capture_controller->InitCaptureDevice(
       texture_registrar.get(), MOCK_DEVICE_ID,
-      PlatformMediaSettings(PlatformResolutionPreset::max, true));
+      PlatformMediaSettings(PlatformResolutionPreset::kMax, true));
 
   EXPECT_FALSE(result);
 
@@ -303,7 +312,7 @@ TEST(CaptureController, InitCaptureEngineReportsFailure) {
 
   bool result = capture_controller->InitCaptureDevice(
       texture_registrar.get(), MOCK_DEVICE_ID,
-      PlatformMediaSettings(PlatformResolutionPreset::max, true));
+      PlatformMediaSettings(PlatformResolutionPreset::kMax, true));
 
   EXPECT_FALSE(result);
   EXPECT_FALSE(engine->initialized_);
@@ -348,7 +357,7 @@ TEST(CaptureController, InitCaptureEngineReportsAccessDenied) {
 
   bool result = capture_controller->InitCaptureDevice(
       texture_registrar.get(), MOCK_DEVICE_ID,
-      PlatformMediaSettings(PlatformResolutionPreset::max, true));
+      PlatformMediaSettings(PlatformResolutionPreset::kMax, true));
 
   EXPECT_FALSE(result);
   EXPECT_FALSE(engine->initialized_);
@@ -734,7 +743,7 @@ TEST(CaptureController, StartRecordWithSettingsSuccess) {
   const auto kVideoBitrate = 200000;
   const auto kAudioBitrate = 32000;
 
-  PlatformMediaSettings media_settings(PlatformResolutionPreset::max, true);
+  PlatformMediaSettings media_settings(PlatformResolutionPreset::kMax, true);
   media_settings.set_frames_per_second(kFps);
   media_settings.set_video_bitrate(kVideoBitrate);
   media_settings.set_audio_bitrate(kAudioBitrate);
