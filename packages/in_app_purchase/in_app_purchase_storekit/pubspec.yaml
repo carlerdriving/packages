@@ -27,7 +27,7 @@ dependencies:
     git:
       url: https://github.com/carlerdriving/packages
       path: "packages/in_app_purchase/in_app_purchase_platform_interface"
-      ref: main
+      ref: carler
 
   
   json_annotation: ^4.3.0
